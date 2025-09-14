@@ -1,0 +1,1767 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Análisis de Muertes por Accidentes de Trabajo en Colombia &#8212; Análisis de Muertes por Accidentes de Trabajo en Colombia</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Dataviz_2';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to your Jupyter Book" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/JOEBANER.png" class="logo__image only-light" alt="Análisis de Muertes por Accidentes de Trabajo en Colombia - Home"/>
+    <script>document.write(`<img src="_static/JOEBANER.png" class="logo__image only-dark" alt="Análisis de Muertes por Accidentes de Trabajo en Colombia - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Análisis de Muertes por Accidentes de Trabajo en Colombia</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FDataviz_2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Dataviz_2.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Análisis de Muertes por Accidentes de Trabajo en Colombia</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-utilizado">Dataset Utilizado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-resultados">Evaluación de Resultados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dispersion-geografica">Dispersión geográfica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tendencias-por-region">Tendencias por región</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-explicativos">Componentes explicativos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relevancia-de-la-georreferenciacion-en-investigaciones-sociales">Relevancia de la georreferenciación en investigaciones sociales</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analisis-de-muertes-por-accidentes-de-trabajo-en-colombia">
+<h1>Análisis de Muertes por Accidentes de Trabajo en Colombia<a class="headerlink" href="#analisis-de-muertes-por-accidentes-de-trabajo-en-colombia" title="Link to this heading">#</a></h1>
+<section id="dataset-utilizado">
+<h2>Dataset Utilizado<a class="headerlink" href="#dataset-utilizado" title="Link to this heading">#</a></h2>
+<p>Este análisis utiliza dos fuentes principales de datos:</p>
+<ul class="simple">
+<li><p><strong>Shapefile del DANE</strong>: Contiene las delimitaciones geográficas de los 32 departamentos de Colombia, con información de códigos y nombres departamentales.</p></li>
+<li><p><strong>Estadísticas de Riesgos Laborales (2024)</strong>: Dataset suministrado por el gobierno a través de la compañia “Positiva Compañía de Seguros S.A.”, con 58,586 registros que incluyen variables como:</p>
+<ul>
+<li><p>Número de trabajadores</p></li>
+<li><p>Muertes reportadas por accidentes de trabajo</p></li>
+<li><p>Nuevas pensiones por invalidez</p></li>
+<li><p>Incapacidades permanentes</p></li>
+</ul>
+</li>
+</ul>
+<p>El período analizado corresponde a reportes del año 2024, sin embargo los datos fueron actualizados hasta este año 2025, con datos agregados a nivel departamental.</p>
+<p>Aqui presento la fuente de donde ser suministraron los datos</p>
+<p><a class="reference external" href="https://www.datos.gov.co/Salud-y-Protecci-n-Social/Estad-sticas-Riesgos-Laborales-Positiva-2024/kwqa-xugj/about_data">https://www.datos.gov.co/Salud-y-Protecci-n-Social/Estad-sticas-Riesgos-Laborales-Positiva-2024/kwqa-xugj/about_data</a></p>
+<p>Lo que queremos averiguar es ver en que departamento de colombia se presenta el mayor numero de accidentes laborales e intentar hallar una explicacion para dicha situación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>      
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span> 
+<span class="n">shapefile_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:/Users/Administrador/Desktop/dataviz_2/COLOMBIA&quot;</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shapefile_path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;C:/Users/Administrador/Desktop/dataviz_2/Estadísticas_Riesgos_Laborales_Positiva_2024_20250912.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DPTO_CNMBR</th>
+      <th>MPIO</th>
+      <th>CODIGO_DE_LA_ARL</th>
+      <th>AÑO_DE_INFORME</th>
+      <th>MES_DE_INFORME</th>
+      <th>ACTIVEC</th>
+      <th>RELA_DEP</th>
+      <th>RELA_INDEP</th>
+      <th>PRESUACCIDETRASUCE</th>
+      <th>MUERTES_REPOR_AT</th>
+      <th>NUEVAPENSIOINVA_R_AT</th>
+      <th>NUEVAPENSIOINVA_R_EL</th>
+      <th>INCAPERMAPARCIAR_AT</th>
+      <th>INCAPERMAPARCIAR_EL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ANTIOQUIA</td>
+      <td>MEDELLIN</td>
+      <td>1423</td>
+      <td>2025</td>
+      <td>5</td>
+      <td>1131201</td>
+      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ANTIOQUIA</td>
+      <td>MEDELLIN</td>
+      <td>1423</td>
+      <td>2025</td>
+      <td>5</td>
+      <td>1131202</td>
+      <td>10</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ANTIOQUIA</td>
+      <td>MEDELLIN</td>
+      <td>1423</td>
+      <td>2025</td>
+      <td>5</td>
+      <td>1139301</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ANTIOQUIA</td>
+      <td>MEDELLIN</td>
+      <td>1423</td>
+      <td>2025</td>
+      <td>5</td>
+      <td>1141001</td>
+      <td>695</td>
+      <td>45</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>ANTIOQUIA</td>
+      <td>MEDELLIN</td>
+      <td>1423</td>
+      <td>2025</td>
+      <td>5</td>
+      <td>1454101</td>
+      <td>300</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>DPTO_CCDGO</th>
+      <th>DPTO_NANO_</th>
+      <th>DPTO_CNMBR</th>
+      <th>DPTO_CACTO</th>
+      <th>DPTO_NAREA</th>
+      <th>DPTO_CSMBL</th>
+      <th>DPTO_NANO</th>
+      <th>PAIS_PAIS_</th>
+      <th>SHAPE_Leng</th>
+      <th>SHAPE_Area</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>05</td>
+      <td>1886</td>
+      <td>ANTIOQUIA</td>
+      <td>Constitucion Politica de 1886</td>
+      <td>6.306333e+10</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>1</td>
+      <td>21.137035</td>
+      <td>5.155783</td>
+      <td>POLYGON ((-76.40481 8.85708, -76.4044 8.85625,...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>08</td>
+      <td>1910</td>
+      <td>ATLANTICO</td>
+      <td>Ley 21 de 1910</td>
+      <td>3.326730e+09</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>2</td>
+      <td>2.461077</td>
+      <td>0.274825</td>
+      <td>POLYGON ((-74.82969 11.04992, -74.82937 11.049...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>11</td>
+      <td>0</td>
+      <td>BOGOTA D.C.</td>
+      <td>None</td>
+      <td>1.633209e+09</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>3</td>
+      <td>3.731288</td>
+      <td>0.133045</td>
+      <td>POLYGON ((-74.07274 4.83565, -74.07217 4.83505...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>13</td>
+      <td>1886</td>
+      <td>BOLIVAR</td>
+      <td>Constitucion Politica de 1886</td>
+      <td>2.666559e+10</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>4</td>
+      <td>15.706980</td>
+      <td>2.191055</td>
+      <td>MULTIPOLYGON (((-75.24966 10.79804, -75.24926 ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>15</td>
+      <td>1886</td>
+      <td>BOYACA</td>
+      <td>Constitucion Politica de 1886</td>
+      <td>2.307705e+10</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>5</td>
+      <td>15.280968</td>
+      <td>1.883315</td>
+      <td>POLYGON ((-72.01129 7.00944, -72.01029 7.00912...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>DPTO_CNMBR, MPIO → ubicación</p>
+<p>CODIGO_DE_LA_ARL → código de la ARL que reporta.</p>
+<p>AÑO_DE_INFORME, MES_DE_INFORME → período de reporte.</p>
+<p>ACTIVEC → código de la actividad económica.</p>
+<p>RELA_DEP, RELA_INDEP → número de trabajadores dependientes e independientes reportados.</p>
+<p>PRESUACCIDETRASUCE → presuntos accidentes de trabajo sucedidos.</p>
+<p>MUERTES_REPOR_AT → muertes reportadas por accidente de trabajo.</p>
+<p>NUEVAPENSIOINVA_R_AT, NUEVAPENSIOINVA_R_EL → nuevas pensiones de invalidez.</p>
+<p>INCAPERMAPARCIAR_AT, INCAPERMAPARCIAR_EL → incapacidades permanentes parciales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(58586, 14)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DPTO_CNMBR              0
+MPIO                    0
+CODIGO_DE_LA_ARL        0
+AÑO_DE_INFORME          0
+MES_DE_INFORME          0
+ACTIVEC                 0
+RELA_DEP                0
+RELA_INDEP              0
+PRESUACCIDETRASUCE      0
+MUERTES_REPOR_AT        0
+NUEVAPENSIOINVA_R_AT    0
+NUEVAPENSIOINVA_R_EL    0
+INCAPERMAPARCIAR_AT     0
+INCAPERMAPARCIAR_EL     0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notamos que no presentamos ningun tipo de nulos</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sum_por_departamento</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">)[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_sum</span> <span class="o">=</span> <span class="n">sum_por_departamento</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">)</span>
+<span class="n">df_sum</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">33</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>DPTO_CNMBR</th>
+      <th>MUERTES_REPOR_AT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AMAZONAS</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ANTIOQUIA</td>
+      <td>1476</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ARAUCA</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>ATLANTICO</td>
+      <td>179</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BOGOTA</td>
+      <td>2372</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>BOLIVAR</td>
+      <td>142</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>BOYACA</td>
+      <td>511</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>CALDAS</td>
+      <td>252</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>CAQUETA</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>CASANARE</td>
+      <td>232</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>CAUCA</td>
+      <td>265</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>CESAR</td>
+      <td>217</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>CHOCO</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>CORDOBA</td>
+      <td>121</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>CUNDINAMARCA</td>
+      <td>525</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>GUAINIA</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>GUAVIARE</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>HUILA</td>
+      <td>201</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>LA GUAJIRA</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>MAGDALENA</td>
+      <td>323</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>META</td>
+      <td>401</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>N. DE SANTANDER</td>
+      <td>478</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>NARIÑO</td>
+      <td>234</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>PUTUMAYO</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>QUINDIO</td>
+      <td>188</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>RISARALDA</td>
+      <td>263</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>SAN ANDRES</td>
+      <td>27</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>SANTANDER</td>
+      <td>499</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>SUCRE</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>TOLIMA</td>
+      <td>274</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>VALLE DEL CAUCA</td>
+      <td>815</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>VAUPES</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>VICHADA</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Lo que hicimos fue que por departamento, sumamos el numero total de accidentes y lo metemos en un dataframe llamado df_sum</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">munic_1</span> <span class="o">=</span> <span class="n">df_sum</span><span class="p">[</span><span class="s2">&quot;DPTO_CNMBR&quot;</span><span class="p">]</span>
+<span class="n">munic_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0            AMAZONAS
+1           ANTIOQUIA
+2              ARAUCA
+3           ATLANTICO
+4              BOGOTA
+5             BOLIVAR
+6              BOYACA
+7              CALDAS
+8             CAQUETA
+9            CASANARE
+10              CAUCA
+11              CESAR
+12              CHOCO
+13            CORDOBA
+14       CUNDINAMARCA
+15            GUAINIA
+16           GUAVIARE
+17              HUILA
+18         LA GUAJIRA
+19          MAGDALENA
+20               META
+21    N. DE SANTANDER
+22             NARIÑO
+23           PUTUMAYO
+24            QUINDIO
+25          RISARALDA
+26         SAN ANDRES
+27          SANTANDER
+28              SUCRE
+29             TOLIMA
+30    VALLE DEL CAUCA
+31             VAUPES
+32            VICHADA
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">munic_2</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span>
+<span class="n">munic_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0                      ANTIOQUIA
+1                      ATLANTICO
+2                    BOGOTA D.C.
+3                        BOLIVAR
+4                         BOYACA
+5                         CALDAS
+6                        CAQUETA
+7                          CAUCA
+8                          CESAR
+9                        CORDOBA
+10                  CUNDINAMARCA
+11                         CHOCO
+12                         HUILA
+13                    LA GUAJIRA
+14                     MAGDALENA
+15                          META
+16                        NARI?O
+17            NORTE DE SANTANDER
+18                       QUINDIO
+19                     RISARALDA
+20                     SANTANDER
+21                         SUCRE
+22                        TOLIMA
+23               VALLE DEL CAUCA
+24                        ARAUCA
+25                      CASANARE
+26                      PUTUMAYO
+27                      AMAZONAS
+28                       GUAINIA
+29                      GUAVIARE
+30                        VAUPES
+31                       VICHADA
+32    ARCHIPIELAGO DE SAN ANDRES
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sum</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;N. DE SANTANDER&#39;</span><span class="p">:</span> <span class="s1">&#39;NORTE SANTANDER&#39;</span><span class="p">,</span> <span class="s1">&#39;VALLE DEL CAUCA&#39;</span><span class="p">:</span><span class="s1">&#39;VALLE&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;NARI?O&#39;</span><span class="p">:</span> <span class="s1">&#39;NARIÑO&#39;</span><span class="p">,</span> <span class="s1">&#39;NORTE DE SANTANDER&#39;</span><span class="p">:</span> <span class="s1">&#39;NORTE SANTANDER&#39;</span><span class="p">,</span> <span class="s1">&#39;BOGOTA D.C.&#39;</span><span class="p">:</span><span class="s1">&#39;BOGOTA&#39;</span><span class="p">,</span> <span class="s1">&#39;ARCHIPIELAGO DE SAN ANDRES&#39;</span><span class="p">:</span> <span class="s1">&#39;SAN ANDRES&#39;</span><span class="p">,</span> <span class="s1">&#39;VALLE DEL CAUCA&#39;</span><span class="p">:</span><span class="s1">&#39;VALLE&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mal_car</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;á&#39;</span><span class="p">,</span> <span class="s1">&#39;é&#39;</span><span class="p">,</span> <span class="s1">&#39;í&#39;</span><span class="p">,</span> <span class="s1">&#39;ó&#39;</span><span class="p">,</span> <span class="s1">&#39;ú&#39;</span><span class="p">,</span> <span class="s1">&#39;ñ&#39;</span><span class="p">,</span> <span class="s1">&#39;ü&#39;</span><span class="p">]</span>  <span class="c1"># Caracteres que queremos cambiar</span>
+<span class="n">bien_car</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="c1"># Caracteres por los que queremos cambiar</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mal_car</span><span class="p">)):</span> <span class="c1"># Este for recorre cada elemento de cada municipio reemplazando los caracteres malos</span>
+    <span class="n">munic_1</span> <span class="o">=</span> <span class="n">munic_1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mal_car</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">bien_car</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># Reemplazamos los caracteres</span>
+                                                                           <span class="c1"># y los ponemos en minúscula</span>
+<span class="n">munic_1</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0            amazonas
+1           antioquia
+2              arauca
+3           atlantico
+4              bogota
+5             bolivar
+6              boyaca
+7              caldas
+8             caqueta
+9            casanare
+10              cauca
+11              cesar
+12              choco
+13            cordoba
+14       cundinamarca
+15            guainia
+16           guaviare
+17              huila
+18         la guajira
+19          magdalena
+20               meta
+21    norte santander
+22             narino
+23           putumayo
+24            quindio
+25          risaralda
+26         san andres
+27          santander
+28              sucre
+29             tolima
+30              valle
+31             vaupes
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mal_car</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;á&#39;</span><span class="p">,</span> <span class="s1">&#39;é&#39;</span><span class="p">,</span> <span class="s1">&#39;í&#39;</span><span class="p">,</span> <span class="s1">&#39;ó&#39;</span><span class="p">,</span> <span class="s1">&#39;ú&#39;</span><span class="p">,</span> <span class="s1">&#39;ñ&#39;</span><span class="p">,</span> <span class="s1">&#39;ü&#39;</span><span class="p">]</span>  <span class="c1"># Caracteres que queremos cambiar</span>
+<span class="n">bien_car</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="c1"># Caracteres por los que queremos cambiar</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mal_car</span><span class="p">)):</span> <span class="c1"># Este for recorre cada elemento de cada municipio reemplazando los caracteres malos</span>
+    <span class="n">munic_2</span> <span class="o">=</span> <span class="n">munic_2</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mal_car</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">bien_car</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># Reemplazamos los caracteres</span>
+                                                                           <span class="c1"># y los ponemos en minúscula</span>
+<span class="n">munic_2</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           antioquia
+1           atlantico
+2              bogota
+3             bolivar
+4              boyaca
+5              caldas
+6             caqueta
+7               cauca
+8               cesar
+9             cordoba
+10       cundinamarca
+11              choco
+12              huila
+13         la guajira
+14          magdalena
+15               meta
+16             narino
+17    norte santander
+18            quindio
+19          risaralda
+20          santander
+21              sucre
+22             tolima
+23              valle
+24             arauca
+25           casanare
+26           putumayo
+27           amazonas
+28            guainia
+29           guaviare
+30             vaupes
+31            vichada
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalidad_kstest</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>  <span class="c1"># Eliminar valores nulos</span>
+    <span class="n">estadistico</span><span class="p">,</span> <span class="n">p_valor</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">kstest</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;norm&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.05</span>  <span class="c1"># Nivel de significancia</span>
+
+    <span class="k">if</span> <span class="n">p_valor</span> <span class="o">&gt;</span> <span class="n">alpha</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se rechaza la hipótesis nula: Los datos siguen una distribución normal (p-valor =&quot;</span><span class="p">,</span> <span class="n">p_valor</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Se rechaza la hipótesis nula: Los datos no siguen una distribución normal (p-valor =&quot;</span><span class="p">,</span> <span class="n">p_valor</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        
+<span class="n">normalidad_kstest</span><span class="p">(</span><span class="n">df_sum</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Se rechaza la hipótesis nula: Los datos no siguen una distribución normal (p-valor = 0.017569096167462273 )
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">munic_1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0            amazonas
+1           antioquia
+2              arauca
+3           atlantico
+4              bogota
+5             bolivar
+6              boyaca
+7              caldas
+8             caqueta
+9            casanare
+10              cauca
+11              cesar
+12              choco
+13            cordoba
+14       cundinamarca
+15            guainia
+16           guaviare
+17              huila
+18         la guajira
+19          magdalena
+20               meta
+21    norte santander
+22             narino
+23           putumayo
+24            quindio
+25          risaralda
+26         san andres
+27          santander
+28              sucre
+29             tolima
+30              valle
+31             vaupes
+32            vichada
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">munic_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           antioquia
+1           atlantico
+2              bogota
+3             bolivar
+4              boyaca
+5              caldas
+6             caqueta
+7               cauca
+8               cesar
+9             cordoba
+10       cundinamarca
+11              choco
+12              huila
+13         la guajira
+14          magdalena
+15               meta
+16             narino
+17    norte santander
+18            quindio
+19          risaralda
+20          santander
+21              sucre
+22             tolima
+23              valle
+24             arauca
+25           casanare
+26           putumayo
+27           amazonas
+28            guainia
+29           guaviare
+30             vaupes
+31            vichada
+32         san andres
+Name: DPTO_CNMBR, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>Aqui verificamos que si se hayan hecho los cambios correctos en la digitación de el nombre de los departamentos, para asi aplicar el Merge de manera correcta.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">distribucion_graficar</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribución de los datos&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Valores&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frecuencia&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+<span class="n">distribucion_graficar</span><span class="p">(</span><span class="n">df_sum</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ba61ba45fdea00e5e0b08eca960d2d8e1abc2160ac42bea686a62571ad1508bd.png" src="_images/ba61ba45fdea00e5e0b08eca960d2d8e1abc2160ac42bea686a62571ad1508bd.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_sum</span><span class="p">[</span><span class="s2">&quot;DPTO_CNMBR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">munic_1</span>
+<span class="n">gdf</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">munic_2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Datos_tot</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">df_sum</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Datos_tot</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OBJECTID</th>
+      <th>DPTO_CCDGO</th>
+      <th>DPTO_NANO_</th>
+      <th>DPTO_CNMBR</th>
+      <th>DPTO_CACTO</th>
+      <th>DPTO_NAREA</th>
+      <th>DPTO_CSMBL</th>
+      <th>DPTO_NANO</th>
+      <th>PAIS_PAIS_</th>
+      <th>SHAPE_Leng</th>
+      <th>SHAPE_Area</th>
+      <th>geometry</th>
+      <th>MUERTES_REPOR_AT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>28</td>
+      <td>91</td>
+      <td>1991</td>
+      <td>amazonas</td>
+      <td>Decreto 2274 del 4 de Octubre de la Constituci...</td>
+      <td>1.100465e+11</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>28</td>
+      <td>24.747842</td>
+      <td>8.921607</td>
+      <td>POLYGON ((-71.29212 0.06821, -71.28829 0.06762...</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>05</td>
+      <td>1886</td>
+      <td>antioquia</td>
+      <td>Constitucion Politica de 1886</td>
+      <td>6.306333e+10</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>1</td>
+      <td>21.137035</td>
+      <td>5.155783</td>
+      <td>POLYGON ((-76.40481 8.85708, -76.4044 8.85625,...</td>
+      <td>1476</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25</td>
+      <td>81</td>
+      <td>1991</td>
+      <td>arauca</td>
+      <td>5 de Julio Constitucion Politica de 1991</td>
+      <td>2.380556e+10</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>25</td>
+      <td>9.162939</td>
+      <td>1.940327</td>
+      <td>POLYGON ((-70.67671 7.09263, -70.67666 7.09251...</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2</td>
+      <td>08</td>
+      <td>1910</td>
+      <td>atlantico</td>
+      <td>Ley 21 de 1910</td>
+      <td>3.326730e+09</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>2</td>
+      <td>2.461077</td>
+      <td>0.274825</td>
+      <td>POLYGON ((-74.82969 11.04992, -74.82937 11.049...</td>
+      <td>179</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>11</td>
+      <td>0</td>
+      <td>bogota</td>
+      <td>None</td>
+      <td>1.633209e+09</td>
+      <td>3</td>
+      <td>2005</td>
+      <td>3</td>
+      <td>3.731288</td>
+      <td>0.133045</td>
+      <td>POLYGON ((-74.07274 4.83565, -74.07217 4.83505...</td>
+      <td>2372</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === 1) Calcular el promedio por departamento en df ===</span>
+<span class="n">promedios</span> <span class="o">=</span> <span class="n">Datos_tot</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;DPTO_CNMBR&quot;</span><span class="p">)[</span><span class="s2">&quot;MUERTES_REPOR_AT&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># === 2) Unir con la geometría (gdf) ===</span>
+<span class="n">geo_promedios</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">promedios</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;DPTO_CNMBR&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+
+<span class="c1"># === 3) Función para graficar ===</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mapa</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columna</span><span class="p">,</span> <span class="n">titulo</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+    
+    <span class="c1"># Crear mapa con escala de rojos</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="n">columna</span><span class="p">,</span> 
+              <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+              <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span>  <span class="c1"># Escala de rojos</span>
+              <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+              <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+              <span class="n">legend_kwds</span><span class="o">=</span><span class="p">{</span>
+                  <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Número de Muertes Reportadas&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;orientation&#39;</span><span class="p">:</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span>
+                  <span class="s1">&#39;shrink&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+                  <span class="s1">&#39;pad&#39;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+                  <span class="s1">&#39;aspect&#39;</span><span class="p">:</span> <span class="mi">40</span>
+              <span class="p">})</span>
+    
+    <span class="c1"># Añadir nombres de departamentos y número de muertes</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">centroid</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span>
+        <span class="n">dept_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="n">muertes</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">columna</span><span class="p">]</span>
+        
+        <span class="c1"># Determinar color de texto basado en el fondo (mejor contraste)</span>
+        <span class="n">text_color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span> <span class="k">if</span> <span class="n">muertes</span> <span class="o">&lt;</span> <span class="n">data</span><span class="p">[</span><span class="n">columna</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.7</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;white&#39;</span>
+        
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dept_name</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">muertes</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> 
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> 
+                <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">text_color</span><span class="p">,</span>
+                <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span>
+                <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=0.2&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">titulo</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># === 4) Graficar usando el GeoDataFrame con promedios ===</span>
+<span class="n">mapa</span><span class="p">(</span><span class="n">geo_promedios</span><span class="p">,</span> <span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">,</span> <span class="s1">&#39;Promedio de muertes reportadas por accidentes de trabajo por departamento&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8b0a1e89ef183fd2d0099e20dba38ffe8827d1c62cb35542bff2bb52b718faee.png" src="_images/8b0a1e89ef183fd2d0099e20dba38ffe8827d1c62cb35542bff2bb52b718faee.png" />
+</div>
+</div>
+<p>Distribución desigual:</p>
+<p>Notamos que en Bogotá, Antioquia y Valle del Cauca se enconcentran los valores más altos de muertes laborales, esto coincide con ser las regiones más industrializadas y pobladas del país.</p>
+<p>Desigualdades territoriales evidentes:</p>
+<p>Los departamentos amazónicos (Amazonas, Vaupés, Guainía) muestran valores mínimos, lo cual demuestra que existe una clara división entre regiones urbanas e industrializadas con las regiones rurales.</p>
+<p>Posibles factores explicativos:</p>
+<p>Concentración industrial y manufacturera</p>
+<p>Densidad poblacional y volumen de trabajadores</p>
+<p>Diferencias en implementación de normas de seguridad laboral</p>
+<p>Variaciones en los sectores económicos predominantes</p>
+<p>Patrón regional:</p>
+<p>La región Andina muestra valores consistentemente más altos</p>
+<p>La región Pacífica y Caribe presentan valores medios</p>
+<p>La Amazonía y Orinoquía tienen los valores más bajos</p>
+<p>Ahora bien, para tener mayor orden, vamos a dividirlos por intervalos</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DejaVu Sans&#39;</span>  
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>  
+
+<span class="c1"># Mapa coroplético</span>
+<span class="n">Datos_tot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">,</span> 
+               <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span> 
+               <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;NaturalBreaks&#39;</span><span class="p">,</span> 
+               <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+               <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+               <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span>
+               <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Añadir nombres de departamentos y número de muertes</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">Datos_tot</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">centroid</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">centroid</span>
+    <span class="n">dept_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+    <span class="n">muertes</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">]</span>
+    
+    <span class="c1"># Crear texto con nombre y muertes</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dept_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">(</span><span class="si">{</span><span class="n">muertes</span><span class="si">}</span><span class="s2"> muertes)&quot;</span>
+    
+    <span class="c1"># Añadir texto al mapa con mejor espaciado</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">centroid</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">centroid</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">texto</span><span class="p">,</span> 
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> 
+            <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> 
+            <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span>
+            <span class="n">linespacing</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>  
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round,pad=0.3&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Muertes por Accidentes de Trabajo por Departamento (Intervalos Naturales)&#39;</span><span class="p">,</span> 
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>  <span class="c1"># Ocultar ejes</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6e27d1ce65f2ba134b1ddd3b03ec208bb2471c7af48675b03456034a4ef8fd35.png" src="_images/6e27d1ce65f2ba134b1ddd3b03ec208bb2471c7af48675b03456034a4ef8fd35.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Definir las regiones de Colombia</span>
+<span class="n">regiones</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ANDINA&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;antioquia&#39;</span><span class="p">,</span> <span class="s1">&#39;cundinamarca&#39;</span><span class="p">,</span> <span class="s1">&#39;santander&#39;</span><span class="p">,</span> <span class="s1">&#39;boyaca&#39;</span><span class="p">,</span> <span class="s1">&#39;huila&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;tolima&#39;</span><span class="p">,</span> <span class="s1">&#39;caldas&#39;</span><span class="p">,</span> <span class="s1">&#39;quindio&#39;</span><span class="p">,</span> <span class="s1">&#39;risaralda&#39;</span><span class="p">,</span> <span class="s1">&#39;norte santander&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;bogota&#39;</span><span class="p">,</span> <span class="s1">&#39;narino&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;CARIBE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;atlantico&#39;</span><span class="p">,</span> <span class="s1">&#39;bolivar&#39;</span><span class="p">,</span> <span class="s1">&#39;cesar&#39;</span><span class="p">,</span> <span class="s1">&#39;cordoba&#39;</span><span class="p">,</span> <span class="s1">&#39;la guajira&#39;</span><span class="p">,</span> 
+               <span class="s1">&#39;magdalena&#39;</span><span class="p">,</span> <span class="s1">&#39;sucre&#39;</span><span class="p">,</span> <span class="s1">&#39;san andres&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;PACIFICA&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;valle&#39;</span><span class="p">,</span> <span class="s1">&#39;cauca&#39;</span><span class="p">,</span> <span class="s1">&#39;choco&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;AMAZONICA&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;amazonas&#39;</span><span class="p">,</span> <span class="s1">&#39;caqueta&#39;</span><span class="p">,</span> <span class="s1">&#39;guainia&#39;</span><span class="p">,</span> <span class="s1">&#39;guaviare&#39;</span><span class="p">,</span> <span class="s1">&#39;putumayo&#39;</span><span class="p">,</span> 
+                  <span class="s1">&#39;vaupes&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;ORINOQUIA&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;arauca&#39;</span><span class="p">,</span> <span class="s1">&#39;casanare&#39;</span><span class="p">,</span> <span class="s1">&#39;meta&#39;</span><span class="p">,</span> <span class="s1">&#39;vichada&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Función para calcular porcentaje de muertes por región</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">porcentaje_muertes_por_region</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">region_nombre</span><span class="p">,</span> <span class="n">departamentos_region</span><span class="p">):</span>
+    <span class="c1"># Filtrar el DataFrame para incluir solo los departamentos de la región</span>
+    <span class="n">df_region</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;DPTO_CNMBR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">departamentos_region</span><span class="p">)]</span>
+    
+    <span class="c1"># Calcular el total de muertes en la región</span>
+    <span class="n">total_muertes_region</span> <span class="o">=</span> <span class="n">df_region</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="c1"># Calcular el total de muertes en todo el país</span>
+    <span class="n">total_muertes_pais</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    
+    <span class="c1"># Calcular el porcentaje de muertes en la región respecto al total del país</span>
+    <span class="n">porcentaje</span> <span class="o">=</span> <span class="p">(</span><span class="n">total_muertes_region</span> <span class="o">/</span> <span class="n">total_muertes_pais</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    
+    <span class="k">return</span> <span class="n">porcentaje</span><span class="p">,</span> <span class="n">total_muertes_region</span>
+
+<span class="c1"># Calcular y mostrar los resultados para cada región</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PORCENTAJE DE MUERTES POR REGIÓN:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">region</span><span class="p">,</span> <span class="n">departamentos</span> <span class="ow">in</span> <span class="n">regiones</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">porcentaje</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">porcentaje_muertes_por_region</span><span class="p">(</span><span class="n">Datos_tot</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">departamentos</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">region</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">porcentaje</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">% (</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> muertes)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calcular el total general para verificación</span>
+<span class="n">total_muertes</span> <span class="o">=</span> <span class="n">Datos_tot</span><span class="p">[</span><span class="s1">&#39;MUERTES_REPOR_AT&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TOTAL NACIONAL: </span><span class="si">{</span><span class="n">total_muertes</span><span class="si">}</span><span class="s2"> muertes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PORCENTAJE DE MUERTES POR REGIÓN:
+==================================================
+ANDINA: 70.20% (7273 muertes)
+CARIBE: 10.94% (1133 muertes)
+PACIFICA: 10.66% (1105 muertes)
+AMAZONICA: 1.47% (152 muertes)
+ORINOQUIA: 6.74% (698 muertes)
+
+TOTAL NACIONAL: 10361 muertes
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evaluacion-de-resultados">
+<h2>Evaluación de Resultados<a class="headerlink" href="#evaluacion-de-resultados" title="Link to this heading">#</a></h2>
+<p>Los mapas coropléticos que se han creado muestran patrones importantes en la distribución geográfica de las muertes laborales:</p>
+<section id="dispersion-geografica">
+<h3>Dispersión geográfica<a class="headerlink" href="#dispersion-geografica" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Concentración alta</strong>: Los valores absolutos más altos corresponden a Valle del Cauca (815), Antioquia (1,476) y Bogotá (2,372).</p></li>
+<li><p><strong>Incidencia media</strong>: Las cifras de departamentos como Bolívar (142), Cundinamarca (525) y Santander (499) son intermedias.</p></li>
+<li><p><strong>Baja incidencia</strong>: Las cifras más reducidas se encuentran en los departamentos de la Amazonía (Guainía: 8, Amazonas: 11, Vaupés: 4).</p></li>
+</ul>
+</section>
+<section id="tendencias-por-region">
+<h3>Tendencias por región<a class="headerlink" href="#tendencias-por-region" title="Link to this heading">#</a></h3>
+<p>Es notoria una división territorial:</p>
+<ul class="simple">
+<li><p><strong>Región Andina</strong>: El 70 % de las muertes reportadas pertenecen a esta región.</p></li>
+<li><p><strong>Regiones del Pacífico y el Caribe</strong>: Valores promedio, a excepción de los de Magdalena (323) y el Atlántico (179).</p></li>
+<li><p><strong>Zona Amazónica</strong>: Presencia mínima, abarcando menos del 2% de la totalidad nacional.</p></li>
+</ul>
+</section>
+<section id="componentes-explicativos">
+<h3>Componentes explicativos<a class="headerlink" href="#componentes-explicativos" title="Link to this heading">#</a></h3>
+<p>Esta distribución es equivalente a:</p>
+<ul class="simple">
+<li><p>Número de habitantes y tamaño de la fuerza laboral</p></li>
+<li><p>Concentración de actividades industriales y de manufactura</p></li>
+<li><p>Existencia de sectores que tienen un alto riesgo (minería, manufactura y construcción)</p></li>
+</ul>
+</section>
+</section>
+<section id="relevancia-de-la-georreferenciacion-en-investigaciones-sociales">
+<h2>Relevancia de la georreferenciación en investigaciones sociales<a class="headerlink" href="#relevancia-de-la-georreferenciacion-en-investigaciones-sociales" title="Link to this heading">#</a></h2>
+<p>El análisis espacial por medio de georreferenciación muestra su importancia esencial:</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Priorización de intervenciones</strong>: Permite identificar áreas críticas para centrar recursos y políticas públicas en materia de seguridad laboral.</p></li>
+<li><p><strong>Entendimiento de contextos regionales</strong>: Los patrones espaciales contribuyen a comprender la manera en que los problemas sociales se ven afectados por elementos geográficos, culturales y económicos.</p></li>
+<li><p><strong>Comunicación efectiva</strong>: Los mapas comunican datos complejos de forma intuitiva, lo que ayuda a los actores públicos y privados a tomar decisiones.</p></li>
+<li><p><strong>Análisis multivariable</strong>: El análisis causal se beneficia de la incorporación de datos demográficos, económicos y sociales con la variable en cuestión.</p></li>
+</ol>
+<p><strong>Conclusión</strong>: La georreferenciación se establece como un instrumento esencial para convertir datos en información que pueda ser utilizada, mostrando no solo dónde tienen lugar los problemas, sino también indicando por qué persisten ciertos patrones de desigualdad territorial.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Welcome to your Jupyter Book</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-utilizado">Dataset Utilizado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-de-resultados">Evaluación de Resultados</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dispersion-geografica">Dispersión geográfica</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tendencias-por-region">Tendencias por región</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#componentes-explicativos">Componentes explicativos</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relevancia-de-la-georreferenciacion-en-investigaciones-sociales">Relevancia de la georreferenciación en investigaciones sociales</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mateo Giraldo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
