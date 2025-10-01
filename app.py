@@ -13,7 +13,10 @@ warnings.filterwarnings("ignore")
 # 1. Cargar datos
 # =======================
 # Ajusta las rutas si tus archivos están en /data dentro del repo
-shapefile_path = "data/COLOMBIA/COLOMBIA.shp"
+# Ruta relativa a la carpeta 'data' en tu repo
+shapefile_path = "data/COLOMBIA.shp"
+# GeoPandas automáticamente usa .dbf, .shx, .prj si están en la misma carpeta
+gdf = gpd.read_file(shapefile_path, encoding="utf-8")
 csv_path = "data/Estadísticas_Riesgos_Laborales_Positiva_2024_20250912.csv"
 
 gdf = gpd.read_file(shapefile_path, encoding="utf-8")
@@ -126,4 +129,5 @@ def actualizar_barras(depto_seleccionado):
 # =======================
 if __name__ == '__main__':
     app.run_server(host="0.0.0.0", port=8080, debug=True)
+
 
