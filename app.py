@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore")
 # =======================
 # Ajusta las rutas si tus archivos están en /data dentro del repo
 shapefile_path = "data/COLOMBIA/COLOMBIA.shp"
-csv_path = "data/Estadisticas_Riesgos_Laborales.csv"
+csv_path = "data/Estadísticas_Riesgos_Laborales_Positiva_2024_20250912.csv"
 
 gdf = gpd.read_file(shapefile_path, encoding="utf-8")
 df = pd.read_csv(csv_path)
@@ -126,3 +126,4 @@ def actualizar_barras(depto_seleccionado):
 # =======================
 if __name__ == '__main__':
     app.run_server(host="0.0.0.0", port=8080, debug=True)
+
