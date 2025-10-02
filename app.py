@@ -1,4 +1,3 @@
-# app.py
 import warnings
 import pandas as pd
 import geopandas as gpd
@@ -6,17 +5,14 @@ import numpy as np
 import dash
 from dash import dcc, html
 import plotly.express as px
+import json
 
 warnings.filterwarnings("ignore")
 
 # =======================
 # 1. Cargar datos
 # =======================
-# Ajusta las rutas si tus archivos están en /data dentro del repo
-# Ruta relativa a la carpeta 'data' en tu repo
 shapefile_path = "data/COLOMBIA/COLOMBIA.shp"
-# GeoPandas automáticamente usa .dbf, .shx, .prj si están en la misma carpeta
-gdf = gpd.read_file(shapefile_path, encoding="utf-8")
 csv_path = "data/Estadísticas_Riesgos_Laborales_Positiva_2024_20250912.csv"
 
 gdf = gpd.read_file(shapefile_path, encoding="utf-8")
@@ -44,7 +40,13 @@ for j in range(len(mal_car)):
 df_sum['DPTO_CNMBR'] = munic_1
 gdf['DPTO_CNMBR'] = munic_2
 
-Datos_tot = pd.merge(gdf, df_sum, on="DPTO_CNMBR", how="outer")
+Datos_tot = pd.merge(gdf, df_sum, on="DPTO_CNMBR", how="left")
+
+# Convertir el GeoDataFrame a formato GeoJSON para Plotly
+Datos_tot_geojson = json.loads(Datos_tot.to_json())
+
+# Crear un mapeo de nombres de departamento a índice
+depto_to_index = {depto: idx for idx, depto in enumerate(Datos_tot['DPTO_CNMBR'])}
 
 # =======================
 # 3. Inicializar app
@@ -81,29 +83,49 @@ app.layout = html.Div([
     [dash.dependencies.Input('dropdown-depto', 'value')]
 )
 def actualizar_mapa(depto_seleccionado):
+    # Crear el mapa coroplético usando el GeoJSON
     fig_mapa = px.choropleth(
         Datos_tot,
-        geojson=Datos_tot.__geo_interface__,
+        geojson=Datos_tot_geojson,
         locations=Datos_tot.index,
         color="MUERTES_REPOR_AT",
+        featureidkey="id",
         hover_name="DPTO_CNMBR",
+        hover_data={"MUERTES_REPOR_AT": True},
         color_continuous_scale="Reds",
-        title="Muertes por Accidentes de Trabajo en Colombia"
+        title="Muertes por Accidentes de Trabajo en Colombia",
+        labels={"MUERTES_REPOR_AT": "Muertes Reportadas"}
     )
-    fig_mapa.update_geos(fitbounds="locations", visible=False)
+    
+    # Configurar el mapa
+    fig_mapa.update_geos(
+        fitbounds="locations", 
+        visible=False,
+        bgcolor='rgba(0,0,0,0)'
+    )
+    
+    fig_mapa.update_layout(
+        margin={"r":0,"t":30,"l":0,"b":0},
+        height=500
+    )
 
     # Resaltar el departamento seleccionado
-    seleccionado = Datos_tot[Datos_tot["DPTO_CNMBR"] == depto_seleccionado]
-    if not seleccionado.empty:
-        centroide = seleccionado.geometry.centroid.iloc[0]
-        fig_mapa.add_scattergeo(
-            lon=[centroide.x],
-            lat=[centroide.y],
-            text=[depto_seleccionado],
-            mode="markers+text",
-            marker=dict(size=12, color="blue"),
-            textposition="top center"
-        )
+    if depto_seleccionado in depto_to_index:
+        depto_index = depto_to_index[depto_seleccionado]
+        seleccionado = Datos_tot.iloc[depto_index]
+        
+        if hasattr(seleccionado.geometry, 'centroid'):
+            centroide = seleccionado.geometry.centroid
+            fig_mapa.add_scattergeo(
+                lon=[centroide.x],
+                lat=[centroide.y],
+                text=[depto_seleccionado.title()],
+                mode="markers+text",
+                marker=dict(size=15, color="blue", symbol="circle"),
+                textposition="top center",
+                showlegend=False
+            )
+    
     return fig_mapa
 
 
@@ -115,13 +137,23 @@ def actualizar_barras(depto_seleccionado):
     filtro = df_sum[df_sum['DPTO_CNMBR'] == depto_seleccionado]
     if filtro.empty:
         return px.bar(title="Sin datos disponibles")
+    
     fig = px.bar(
         filtro,
         x="DPTO_CNMBR",
         y="MUERTES_REPOR_AT",
         title=f"Muertes reportadas en {depto_seleccionado.title()}",
-        labels={"MUERTES_REPOR_AT": "Número de muertes"}
+        labels={
+            "MUERTES_REPOR_AT": "Número de muertes",
+            "DPTO_CNMBR": "Departamento"
+        }
     )
+    
+    fig.update_layout(
+        xaxis_title="Departamento",
+        yaxis_title="Muertes Reportadas"
+    )
+    
     return fig
 
 # =======================
@@ -129,6 +161,3 @@ def actualizar_barras(depto_seleccionado):
 # =======================
 if __name__ == '__main__':
     app.run_server(host="0.0.0.0", port=8080, debug=True)
-
-
-
