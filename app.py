@@ -1,3 +1,4 @@
+# app.py
 import warnings
 import pandas as pd
 import geopandas as gpd
@@ -5,20 +6,28 @@ import numpy as np
 import dash
 from dash import dcc, html
 import plotly.express as px
+import json
+import os
 
 warnings.filterwarnings("ignore")
 
 # =======================
 # 1. Cargar datos
 # =======================
-# Ajusta las rutas si tus archivos están en /data dentro del repo
-# Ruta relativa a la carpeta 'data' en tu repo
+# Rutas
 shapefile_path = "data/COLOMBIA/COLOMBIA.shp"
-# GeoPandas automáticamente usa .dbf, .shx, .prj si están en la misma carpeta
-gdf = gpd.read_file(shapefile_path, encoding="utf-8")
 csv_path = "data/Estadísticas_Riesgos_Laborales_Positiva_2024_20250912.csv"
+geojson_path = "data/colombia_simplificado.geojson"
 
-gdf = gpd.read_file(shapefile_path, encoding="utf-8")
+# --- Si no existe el geojson simplificado, lo creamos ---
+if not os.path.exists(geojson_path):
+    gdf = gpd.read_file(shapefile_path, encoding="utf-8")
+    # simplificación para hacerlo más liviano
+    gdf["geometry"] = gdf["geometry"].simplify(0.01, preserve_topology=True)
+    gdf.to_file(geojson_path, driver="GeoJSON")
+
+# Cargar datos preprocesados
+gdf = gpd.read_file(geojson_path)
 df = pd.read_csv(csv_path)
 
 # =======================
@@ -28,10 +37,6 @@ def sum_por_departamento(df, column_name):
     return df.groupby('DPTO_CNMBR')[column_name].sum().reset_index()
 
 df_sum = sum_por_departamento(df, 'MUERTES_REPOR_AT')
-
-# Correcciones de nombres antes de la normalización
-df_sum['DPTO_CNMBR'].replace({'N. DE SANTANDER': 'NORTE SANTANDER', 'VALLE DEL CAUCA':'VALLE'}, inplace=True)
-gdf['DPTO_CNMBR'].replace({'NARI?O': 'NARIÑO', 'NORTE DE SANTANDER': 'NORTE SANTANDER', 'BOGOTA D.C.':'BOGOTA', 'ARCHIPIELAGO DE SAN ANDRES': 'SAN ANDRES', 'VALLE DEL CAUCA':'VALLE'}, inplace=True)
 
 # Normalizar nombres para merge
 mal_car = ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü']
@@ -47,13 +52,10 @@ for j in range(len(mal_car)):
 df_sum['DPTO_CNMBR'] = munic_1
 gdf['DPTO_CNMBR'] = munic_2
 
-# Verificar los nombres después de la normalización
-print("Nombres únicos en df_sum:")
-print(df_sum['DPTO_CNMBR'].unique())
-print("\nNombres únicos en gdf:")
-print(gdf['DPTO_CNMBR'].unique())
-
 Datos_tot = pd.merge(gdf, df_sum, on="DPTO_CNMBR", how="outer")
+
+# Convertir el GeoDataFrame a geojson para px.choropleth
+geojson = json.loads(Datos_tot.to_json())
 
 # =======================
 # 3. Inicializar app
@@ -70,12 +72,12 @@ app.layout = html.Div([
     # --- Dropdown para departamentos ---
     dcc.Dropdown(
         id='dropdown-depto',
-        options=[{'label': dept.title(), 'value': dept} for dept in sorted(df_sum['DPTO_CNMBR'].unique())],
+        options=[{'label': dept.title(), 'value': dept} for dept in df_sum['DPTO_CNMBR'].unique()],
         value='bogota',  # valor inicial
         clearable=False
     ),
 
-    # --- Mapa coroplético ---
+    # --- Mapa ---
     dcc.Graph(id='mapa-muertes'),
 
     # --- Gráfico de barras por departamento ---
@@ -90,41 +92,17 @@ app.layout = html.Div([
     [dash.dependencies.Input('dropdown-depto', 'value')]
 )
 def actualizar_mapa(depto_seleccionado):
-    # Crear mapa coroplético similar al de la imagen
     fig_mapa = px.choropleth(
         Datos_tot,
-        geojson=Datos_tot.geometry.__geo_interface__,
-        locations=Datos_tot.index,
+        geojson=geojson,
+        locations="DPTO_CNMBR",            # columna en el DataFrame
+        featureidkey="properties.DPTO_CNMBR",  # columna en el geojson
         color="MUERTES_REPOR_AT",
         hover_name="DPTO_CNMBR",
-        hover_data={"MUERTES_REPOR_AT": True},
         color_continuous_scale="Reds",
-        title="Muertes por Accidentes de Trabajo en Colombia",
-        labels={"MUERTES_REPOR_AT": "Número de Muertes"}
+        title="Muertes por Accidentes de Trabajo en Colombia"
     )
-    
-    # Configurar el mapa
-    fig_mapa.update_geos(
-        fitbounds="locations", 
-        visible=False,
-        projection_type="mercator"
-    )
-    
-    # Mejorar el diseño del mapa
-    fig_mapa.update_layout(
-        geo=dict(
-            bgcolor='rgba(0,0,0,0)',
-            lakecolor='#0E1117',
-            landcolor='white',
-            subunitcolor='grey'
-        ),
-        margin={"r":0,"t":40,"l":0,"b":0},
-        coloraxis_colorbar=dict(
-            title="Muertes",
-            thickness=15,
-            len=0.75
-        )
-    )
+    fig_mapa.update_geos(fitbounds="locations", visible=False)
 
     # Resaltar el departamento seleccionado
     seleccionado = Datos_tot[Datos_tot["DPTO_CNMBR"] == depto_seleccionado]
@@ -133,13 +111,11 @@ def actualizar_mapa(depto_seleccionado):
         fig_mapa.add_scattergeo(
             lon=[centroide.x],
             lat=[centroide.y],
-            text=[depto_seleccionado.title()],
+            text=[depto_seleccionado],
             mode="markers+text",
-            marker=dict(size=12, color="blue", symbol="circle"),
-            textposition="top center",
-            showlegend=False
+            marker=dict(size=12, color="blue"),
+            textposition="top center"
         )
-    
     return fig_mapa
 
 
@@ -151,28 +127,13 @@ def actualizar_barras(depto_seleccionado):
     filtro = df_sum[df_sum['DPTO_CNMBR'] == depto_seleccionado]
     if filtro.empty:
         return px.bar(title="Sin datos disponibles")
-    
     fig = px.bar(
         filtro,
         x="DPTO_CNMBR",
         y="MUERTES_REPOR_AT",
         title=f"Muertes reportadas en {depto_seleccionado.title()}",
-        labels={
-            "MUERTES_REPOR_AT": "Número de muertes",
-            "DPTO_CNMBR": "Departamento"
-        },
-        color=["#EF553B"],
-        text="MUERTES_REPOR_AT"
+        labels={"MUERTES_REPOR_AT": "Número de muertes"}
     )
-    
-    # Mejorar el diseño del gráfico de barras
-    fig.update_traces(texttemplate='%{text}', textposition='outside')
-    fig.update_layout(
-        xaxis_title="Departamento",
-        yaxis_title="Número de Muertes",
-        showlegend=False
-    )
-    
     return fig
 
 # =======================
