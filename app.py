@@ -5,6 +5,7 @@ import dash
 from dash import dcc, html
 import plotly.express as px
 import plotly.graph_objects as go
+import json
 
 warnings.filterwarnings("ignore")
 
@@ -34,36 +35,97 @@ except Exception as e:
     })
 
 # =======================
-# 2. Limpieza de datos OPTIMIZADA
+# 2. Limpieza de datos OPTIMIZADA CON CORRECCIONES DE NOMBRES
 # =======================
-def normalizar_texto(texto):
-    if pd.isna(texto):
-        return texto
-    replacements = {
-        'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
-        'ñ': 'n', 'ü': 'u'
-    }
-    texto = str(texto).lower()
-    for orig, repl in replacements.items():
-        texto = texto.replace(orig, repl)
-    return texto
 
-# Procesar datos de manera eficiente
+# Primero: corregir nombres específicos en ambos datasets
 df_sum = df.groupby('DPTO_CNMBR')['MUERTES_REPOR_AT'].sum().reset_index()
-df_sum['DPTO_NORM'] = df_sum['DPTO_CNMBR'].apply(normalizar_texto)
-gdf['DPTO_NORM'] = gdf['DPTO_CNMBR'].apply(normalizar_texto)
+
+# Correcciones específicas en df_sum
+df_sum['DPTO_CNMBR'].replace({
+    'N. DE SANTANDER': 'NORTE SANTANDER', 
+    'VALLE DEL CAUCA': 'VALLE'
+}, inplace=True)
+
+# Correcciones específicas en gdf
+gdf['DPTO_CNMBR'].replace({
+    'NARI?O': 'NARIÑO', 
+    'NORTE DE SANTANDER': 'NORTE SANTANDER', 
+    'BOGOTA D.C.': 'BOGOTA', 
+    'ARCHIPIELAGO DE SAN ANDRES': 'SAN ANDRES', 
+    'VALLE DEL CAUCA': 'VALLE'
+}, inplace=True)
+
+# Segundo: normalizar caracteres especiales
+mal_car = ['á', 'é', 'í', 'ó', 'ú', 'ñ', 'ü']
+bien_car = ['a', 'e', 'i', 'o', 'u', 'n', 'u']
+
+# Aplicar normalización a df_sum
+munic_1 = df_sum['DPTO_CNMBR'].copy()
+for j in range(len(mal_car)):
+    munic_1 = munic_1.str.replace(mal_car[j], bien_car[j], regex=False).str.lower()
+df_sum['DPTO_NORM'] = munic_1
+
+# Aplicar normalización a gdf
+munic_2 = gdf['DPTO_CNMBR'].copy()
+for j in range(len(mal_car)):
+    munic_2 = munic_2.str.replace(mal_car[j], bien_car[j], regex=False).str.lower()
+gdf['DPTO_NORM'] = munic_2
 
 # Merge simple
 datos_combinados = gdf.merge(df_sum, on='DPTO_NORM', how='left')
 datos_combinados['MUERTES_REPOR_AT'] = datos_combinados['MUERTES_REPOR_AT'].fillna(0)
 
 # =======================
-# 3. SOLUCIÓN SIMPLIFICADA PARA EL MAPA
+# 3. SOLUCIÓN MEJORADA: MAPA REAL CON SHAPEFILE
 # =======================
-def crear_mapa_simple():
-    """Crear un mapa simple y eficiente usando centroides"""
+def crear_mapa_real():
+    """Crear un mapa real con el shapefile de Colombia"""
     
-    # Calcular centroides de manera segura
+    try:
+        # Simplificar geometrías para mejor rendimiento
+        datos_combinados_simple = datos_combinados.copy()
+        datos_combinados_simple['geometry'] = datos_combinados_simple['geometry'].simplify(0.01)
+        
+        # Convertir a GeoJSON
+        geojson_data = json.loads(datos_combinados_simple.to_json())
+        
+        # Crear mapa coroplético con el shapefile real
+        fig = px.choropleth_mapbox(
+            datos_combinados_simple,
+            geojson=geojson_data,
+            locations=datos_combinados_simple.index,
+            color="MUERTES_REPOR_AT",
+            hover_name="DPTO_CNMBR",
+            hover_data={"MUERTES_REPOR_AT": True, "DPTO_NORM": False},
+            color_continuous_scale="Reds",
+            title="Muertes por Accidentes de Trabajo en Colombia",
+            mapbox_style="carto-positron",
+            center={"lat": 4, "lon": -74},
+            zoom=4,
+            opacity=0.7
+        )
+        
+        fig.update_layout(
+            height=600,
+            margin={"r":0,"t":50,"l":0,"b":0},
+            coloraxis_colorbar=dict(
+                title="Número de Muertes",
+                thickness=15,
+                len=0.75
+            )
+        )
+        
+        return fig
+        
+    except Exception as e:
+        print(f"Error creando mapa real: {e}")
+        # Fallback: mapa simple con centroides
+        return crear_mapa_simple_fallback()
+
+def crear_mapa_simple_fallback():
+    """Fallback: mapa simple con centroides"""
+    
     centroids = []
     for idx, row in datos_combinados.iterrows():
         try:
@@ -73,7 +135,8 @@ def crear_mapa_simple():
                     'depto': row['DPTO_NORM'],
                     'lat': centroid.y,
                     'lon': centroid.x,
-                    'muertes': row['MUERTES_REPOR_AT']
+                    'muertes': row['MUERTES_REPOR_AT'],
+                    'nombre_real': row['DPTO_CNMBR']
                 })
         except:
             continue
@@ -81,20 +144,21 @@ def crear_mapa_simple():
     if not centroids:
         # Fallback: crear datos de ejemplo
         centroids = [
-            {'depto': 'bogota', 'lat': 4.7110, 'lon': -74.0721, 'muertes': 10},
-            {'depto': 'antioquia', 'lat': 6.2442, 'lon': -75.5736, 'muertes': 25},
-            {'depto': 'valle', 'lat': 3.4516, 'lon': -76.5320, 'muertes': 15}
+            {'depto': 'bogota', 'lat': 4.7110, 'lon': -74.0721, 'muertes': 10, 'nombre_real': 'Bogotá'},
+            {'depto': 'antioquia', 'lat': 6.2442, 'lon': -75.5736, 'muertes': 25, 'nombre_real': 'Antioquia'},
+            {'depto': 'valle', 'lat': 3.4516, 'lon': -76.5320, 'muertes': 15, 'nombre_real': 'Valle'},
+            {'depto': 'cundinamarca', 'lat': 4.6097, 'lon': -74.0817, 'muertes': 8, 'nombre_real': 'Cundinamarca'}
         ]
     
     df_centroids = pd.DataFrame(centroids)
     
-    # Crear mapa de burbujas (mucho más eficiente)
+    # Crear mapa de burbujas
     fig = px.scatter_geo(
         df_centroids,
         lat='lat',
         lon='lon',
         size='muertes',
-        hover_name='depto',
+        hover_name='nombre_real',
         hover_data={'muertes': True, 'lat': False, 'lon': False},
         size_max=30,
         title="Muertes por Accidentes de Trabajo en Colombia",
@@ -135,7 +199,9 @@ app.layout = html.Div([
     
     html.Div([
         html.P("Selecciona un departamento para ver detalles", 
-               style={'textAlign': 'center', 'color': '#666'})
+               style={'textAlign': 'center', 'color': '#666'}),
+        html.P("🗺️ Mapa interactivo de Colombia con datos reales", 
+               style={'textAlign': 'center', 'color': '#888', 'fontSize': '14px'})
     ]),
     
     # Dropdown centrado
@@ -161,7 +227,8 @@ app.layout = html.Div([
         'marginTop': 30, 
         'padding': 20, 
         'backgroundColor': '#f8f9fa',
-        'borderRadius': '10px'
+        'borderRadius': '10px',
+        'border': '1px solid #dee2e6'
     })
 ])
 
@@ -173,8 +240,8 @@ app.layout = html.Div([
     [dash.dependencies.Input('dropdown-depto', 'value')]
 )
 def actualizar_mapa(depto_seleccionado):
-    # Retornar el mapa simple (no depende del dropdown para mejor performance)
-    return crear_mapa_simple()
+    # Retornar el mapa real con shapefile
+    return crear_mapa_real()
 
 @app.callback(
     dash.dependencies.Output('grafico-depto', 'figure'),
@@ -192,11 +259,15 @@ def actualizar_barras(depto_seleccionado):
         )
         return fig
     
+    # Obtener el nombre real para mostrar en el título
+    nombre_real = datos_combinados[datos_combinados['DPTO_NORM'] == depto_seleccionado]['DPTO_CNMBR'].iloc[0] \
+        if not datos_combinados[datos_combinados['DPTO_NORM'] == depto_seleccionado].empty else depto_seleccionado.title()
+    
     fig = px.bar(
         depto_data,
         x='DPTO_NORM',
         y='MUERTES_REPOR_AT',
-        title=f'Muertes Reportadas en {depto_seleccionado.title()}',
+        title=f'Muertes Reportadas en {nombre_real}',
         labels={
             'MUERTES_REPOR_AT': 'Número de Muertes',
             'DPTO_NORM': 'Departamento'
@@ -209,6 +280,10 @@ def actualizar_barras(depto_seleccionado):
         showlegend=False
     )
     
+    # Personalizar la barra
+    fig.update_traces(marker_color='#dc3545', marker_line_color='#c82333', 
+                     marker_line_width=1.5, opacity=0.8)
+    
     return fig
 
 @app.callback(
@@ -220,16 +295,24 @@ def actualizar_estadisticas(depto_seleccionado):
     depto_muertes = df_sum[df_sum['DPTO_NORM'] == depto_seleccionado]['MUERTES_REPOR_AT'].sum()
     porcentaje = (depto_muertes / total_muertes * 100) if total_muertes > 0 else 0
     
+    # Obtener el nombre real para mostrar
+    nombre_real = datos_combinados[datos_combinados['DPTO_NORM'] == depto_seleccionado]['DPTO_CNMBR'].iloc[0] \
+        if not datos_combinados[datos_combinados['DPTO_NORM'] == depto_seleccionado].empty else depto_seleccionado.title()
+    
     return [
-        html.H3("📊 Estadísticas Resumen", style={'marginBottom': 15}),
-        html.P(f"📍 Departamento seleccionado: {depto_seleccionado.title()}"),
-        html.P(f"🕴️ Muertes en {depto_seleccionado.title()}: {int(depto_muertes)}"),
-        html.P(f"📈 Porcentaje del total: {porcentaje:.1f}%"),
-        html.P(f"🇨🇴 Total muertes en Colombia: {int(total_muertes)}")
+        html.H3("📊 Estadísticas Resumen", style={'marginBottom': 15, 'color': '#343a40'}),
+        html.P(f"📍 Departamento seleccionado: {nombre_real}", 
+               style={'marginBottom': 8, 'fontWeight': 'bold'}),
+        html.P(f"🕴️ Muertes reportadas: {int(depto_muertes)}", 
+               style={'marginBottom': 8}),
+        html.P(f"📈 Porcentaje del total nacional: {porcentaje:.1f}%", 
+               style={'marginBottom': 8}),
+        html.P(f"🇨🇴 Total muertes en Colombia: {int(total_muertes)}", 
+               style={'marginBottom': 0})
     ]
 
 # =======================
 # 7. Configuración para Render
 # =======================
 if __name__ == '__main__':
-    app.run_server(host="0.0.0.0", port=8080, debug=False)  # debug=False en producción
+    app.run_server(host="0.0.0.0", port=8080, debug=False)
